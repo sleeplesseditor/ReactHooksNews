@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -37,38 +37,60 @@ export default function App() {
   }
 
   return (
-    <Fragment>
-      <form onSubmit={handleSearch}>
+    <div className="container max-w-md mx-auto p-4 m-2 bg-gray-100 rounded">
+      <img 
+        src="https://icon.now.sh/react/c0c" 
+        alt="React Logo" 
+        className="float-right h-12"
+      />
+      <h1 className="text-gray-darkest font-thin">
+        Hooks News
+      </h1>
+      <form 
+        onSubmit={handleSearch}
+        className="mb-2"
+      >
         <input 
           type="text" 
           onChange={event => setQuery(event.target.value)}
           value={query} 
           ref={searchInputRef}
+          className="border p-1 rounded"
         />
         <button 
           type="submit"
+          className="bg-blue-500 m-1 p-1 text-white rounded"
         >
           Search
         </button>
         <button 
           type="button"
           onClick={handleClearSearch}
+          className="bg-red-600 text-white p-1 rounded"
         >
           Clear
         </button>
       </form>
       {loading ? (
-        <div>Loading Results...</div>
+        <div className="font-bold text-gray-dark">
+          Loading Results...
+        </div>
       ) : (
-        <ul>
+        <ul className="list-reset leading-normal">
           {results.map(result => (
             <li key={result.objectID}>
-              <a href={result.url}>{result.title}</a>
+              <a 
+                className="text-darkest-gray hover:text-light-gray"
+                href={result.url}>
+                  {result.title}
+              </a>
             </li>
           ))}
         </ul>
       )}
-      {error && <div>{error.message}</div>}
-    </Fragment>
+      {error && <div className="text-red font-bold">
+        {error.message}
+      </div>}
+    </div>
   );
 }
